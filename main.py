@@ -1,6 +1,6 @@
 import os
-import sys
 import time
+import multiprocessing
 
 import keyboard
 from pydub import AudioSegment
@@ -19,11 +19,21 @@ Close Recording - Ctrl + Shift + L
 """
 
 toExit = False
+recordStarted = False
+
+def play_audio():
+    audio = AudioSegment.from_mp3(audio_file)
+    play(audio)
 
 def record_start():
-    print("start recording")
-    # audio = AudioSegment.from_mp3("D:/PROJECTS/flow.mp3")
-    # play(audio)
+    global recordStarted
+    if not recordStarted:
+        time.sleep(1)
+        audio_process = multiprocessing.Process(target=play_audio)
+        audio_process.start()
+
+    recordStarted = True
+    print("started recording")
 
 def record_close():
     global toExit
