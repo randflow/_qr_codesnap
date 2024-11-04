@@ -59,7 +59,7 @@ def start_coding():
   time.sleep(2)
   keyboard.send('ctrl+`')
   time.sleep(2)
-  keyboard.write('python if.py')
+  keyboard.write('python main.py')
   time.sleep(2)
   keyboard.send('enter')
 
