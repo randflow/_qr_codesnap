@@ -24,8 +24,7 @@ recordStarted = False
 
 def play_audio():
   try:
-    audio = AudioSegment.from_mp3(audio_file)
-    play(audio)
+    play(AudioSegment.from_mp3(audio_file))
   except Exception as e:
     print(f"Error Playing Audio: {e}")
 
@@ -50,8 +49,8 @@ def start_coding():
         keyboard.send('ctrl+home')
         continue
       
-      keyboard.write(line, delay=random.uniform(0.1, 0.25))  # Send strokes
-      time.sleep(random.uniform(1, 3))
+      keyboard.write(line, delay=random.uniform(0.1, 0.15))  # Send strokes
+      time.sleep(random.uniform(1, 2))
 
   time.sleep(2)
   keyboard.send('ctrl+s')
