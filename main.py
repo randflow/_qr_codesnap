@@ -9,6 +9,7 @@ from pydub.playback import play
 
 data_dir = "D:/PROJECTS/data_dir"
 audio_file = os.path.join(data_dir, "flow.mp3")
+print(audio_file)
 coder_file = os.path.join(data_dir, "code.py")
 
 """
@@ -24,14 +25,13 @@ recordStarted = False
 
 def play_audio():
   try:
-    play(AudioSegment.from_mp3(audio_file))
+    play(AudioSegment.from_file(audio_file))
   except Exception as e:
     print(f"Error Playing Audio: {e}")
 
 def trigger_audio():
   print("Starting Audio Playback")
-  audio_thread = threading.Thread(target=play_audio)
-  audio_thread.start()
+  threading.Thread(target=play_audio).start()
 
 def start_coding():
   time.sleep(4)
