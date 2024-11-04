@@ -40,7 +40,6 @@ def start_coding():
       if "# [[CODE]]" in stripped_line:
         time.sleep(2)
         keyboard.send('enter')
-        keyboard.send('enter')
         continue
 
       if "# [[BRIEF]]" in stripped_line:
