@@ -58,6 +58,6 @@ def record_close():
 keyboard.add_hotkey('Ctrl+Shift+J', record_start)
 keyboard.add_hotkey('Ctrl+Shift+L', record_close)
 
+print("Listening for hotkeys...")
 while not toExit:
-    print("Listening for hotkeys...")
-    time.sleep(10)
+    time.sleep(4)
