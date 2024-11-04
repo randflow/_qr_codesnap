@@ -35,7 +35,7 @@ def trigger_audio():
 def start_coding():
   with open(coder_file, "r") as file:
     for line in file:
-      stripped_line = line.strip()  # Remove leading and trailing spaces
+      stripped_line = line.lstrip()  # Remove leading spaces only
       keyboard.write(stripped_line, delay=0.1)  # Send strokes
       time.sleep(2)
 
