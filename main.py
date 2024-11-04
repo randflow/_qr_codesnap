@@ -36,7 +36,8 @@ def start_coding():
   time.sleep(4)
   with open(coder_file, "r") as file:
     for line in file:
-      stripped_line = line.lstrip()  # Remove leading spaces only
+      # stripped_line = line.lstrip()  # Remove leading spaces only
+      stripped_line = line
       if "# [[CODE]]" in stripped_line:
         time.sleep(2)
         keyboard.send('enter')
