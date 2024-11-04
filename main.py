@@ -51,7 +51,7 @@ def start_coding():
         keyboard.send('enter')
         continue
       
-      keyboard.write(line, delay=0.1)  # Send strokes
+      keyboard.write(stripped_line, delay=0.1)  # Send strokes
       time.sleep(2)
 
   time.sleep(2)
