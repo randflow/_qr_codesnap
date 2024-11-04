@@ -21,53 +21,54 @@ toExit = False
 recordStarted = False
 
 def play_audio():
-    try:
-        audio = AudioSegment.from_mp3(audio_file)
-        play(audio)
-    except Exception as e:
-        print(f"Error Playing Audio: {e}")
+  try:
+    audio = AudioSegment.from_mp3(audio_file)
+    play(audio)
+  except Exception as e:
+    print(f"Error Playing Audio: {e}")
 
 def trigger_audio():
-    print("Starting Audio Playback")
-    audio_thread = threading.Thread(target=play_audio)
-    audio_thread.start()
+  print("Starting Audio Playback")
+  audio_thread = threading.Thread(target=play_audio)
+  audio_thread.start()
 
 def start_coding():
-    with open(coder_file, "r") as file:
-        for line in file:
-            keyboard.write(line, delay=0.1)  # Send the line as keystrokes
-            time.sleep(2)
+  with open(coder_file, "r") as file:
+    for line in file:
+      stripped_line = line.strip()  # Remove leading and trailing spaces
+      keyboard.write(stripped_line, delay=0.1)  # Send strokes
+      time.sleep(2)
 
-    time.sleep(2)
-    keyboard.send('ctrl+s')
-    time.sleep(2)
-    keyboard.send('ctrl+`')
-    time.sleep(2)
-    keyboard.write('python if.py')
-    time.sleep(2)
-    keyboard.send('enter')
+  time.sleep(2)
+  keyboard.send('ctrl+s')
+  time.sleep(2)
+  keyboard.send('ctrl+`')
+  time.sleep(2)
+  keyboard.write('python if.py')
+  time.sleep(2)
+  keyboard.send('enter')
 
 def record_start():
-    global recordStarted
-    if not recordStarted:
-        trigger_audio()
-        time.sleep(4)
-        start_coding()
-        print("Started Recording")
-    else:
-        print("Already Recording")
-    
-    recordStarted = True
+  global recordStarted
+  if not recordStarted:
+    trigger_audio()
+    time.sleep(4)
+    start_coding()
+    print("Started Recording")
+  else:
+    print("Already Recording")
+  
+  recordStarted = True
 
 def record_close():
-    global toExit
-    print("Closing Recording")
-    keyboard.unhook_all_hotkeys()
-    toExit = True
+  global toExit
+  print("Closing Recording")
+  keyboard.unhook_all_hotkeys()
+  toExit = True
 
 keyboard.add_hotkey('Ctrl+Shift+J', record_start)
 keyboard.add_hotkey('Ctrl+Shift+L', record_close)
 
 print("Listening for hotkeys...")
 while not toExit:
-    time.sleep(4)
+  time.sleep(4)
