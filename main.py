@@ -48,7 +48,7 @@ def start_coding():
         keyboard.send('ctrl+home')
         time.sleep(2)
         keyboard.send('enter')
-        keyboard.send('enter')
+        keyboard.send('ctrl+home')
         continue
       
       keyboard.write(stripped_line, delay=0.1)  # Send strokes
