@@ -56,7 +56,7 @@ def start_coding():
   time.sleep(1)
   keyboard.send('ctrl+`')
   time.sleep(1)
-  keyboard.write('python main.py')
+  keyboard.write('python main.py', delay=0.4)
   time.sleep(1)
   keyboard.send('enter')
 
