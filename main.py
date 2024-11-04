@@ -36,12 +36,22 @@ def start_coding():
     with open(coder_file, "r") as file:
         for line in file:
             keyboard.write(line, delay=0.1)  # Send the line as keystrokes
+            time.sleep(2)
+
+    time.sleep(2)
+    keyboard.send('ctrl+s')
+    time.sleep(2)
+    keyboard.send('ctrl+`')
+    time.sleep(2)
+    keyboard.write('python if.py')
+    time.sleep(2)
+    keyboard.send('enter')
 
 def record_start():
     global recordStarted
     if not recordStarted:
         trigger_audio()
-        time.sleep(2)
+        time.sleep(4)
         start_coding()
         print("Started Recording")
     else:
