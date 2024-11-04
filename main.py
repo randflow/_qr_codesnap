@@ -33,10 +33,25 @@ def trigger_audio():
   audio_thread.start()
 
 def start_coding():
+  time.sleep(4)
   with open(coder_file, "r") as file:
     for line in file:
       stripped_line = line.lstrip()  # Remove leading spaces only
-      keyboard.write(stripped_line, delay=0.1)  # Send strokes
+      if "# [[CODE]]" in stripped_line:
+        time.sleep(2)
+        keyboard.send('enter')
+        keyboard.send('enter')
+        continue
+
+      if "# [[BRIEF]]" in stripped_line:
+        time.sleep(2)
+        keyboard.send('ctrl+home')
+        time.sleep(2)
+        keyboard.send('enter')
+        keyboard.send('enter')
+        continue
+      
+      keyboard.write(line, delay=0.1)  # Send strokes
       time.sleep(2)
 
   time.sleep(2)
@@ -52,7 +67,6 @@ def record_start():
   global recordStarted
   if not recordStarted:
     trigger_audio()
-    time.sleep(4)
     start_coding()
     print("Started Recording")
   else:
