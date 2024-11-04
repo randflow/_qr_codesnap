@@ -25,7 +25,7 @@ recordStarted = False
 
 def play_audio():
   try:
-    play(AudioSegment.from_file(audio_file))
+    play(AudioSegment.from_mp3(audio_file))
   except Exception as e:
     print(f"Error Playing Audio: {e}")
 
