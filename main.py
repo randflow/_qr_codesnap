@@ -5,7 +5,7 @@ import keyboard
 from pydub import AudioSegment
 from pydub.playback import play
 
-data_dir = "D:/PROJECTS"
+data_dir = "D:/PROJECTS/data_dir"
 audio_file = os.path.join(data_dir, "flow.mp3")
 coder_file = os.path.join(data_dir, "main.py")
 
