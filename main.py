@@ -1,6 +1,8 @@
 import os
 import time
+import random
 import threading
+
 import keyboard
 from pydub import AudioSegment
 from pydub.playback import play
@@ -36,23 +38,20 @@ def start_coding():
   time.sleep(4)
   with open(coder_file, "r") as file:
     for line in file:
-      # stripped_line = line.lstrip()  # Remove leading spaces only
-      stripped_line = line
-      if "# [[CODE]]" in stripped_line:
-        time.sleep(2)
+      time.sleep(2)
+      if line.strip() == "" or "# [[CODE]]" in line:
         keyboard.send('enter')
         continue
 
-      if "# [[BRIEF]]" in stripped_line:
-        time.sleep(2)
+      if "# [[BRIEF]]" in line:
         keyboard.send('ctrl+home')
         time.sleep(2)
         keyboard.send('enter')
         keyboard.send('ctrl+home')
         continue
       
-      keyboard.write(stripped_line, delay=0.1)  # Send strokes
-      time.sleep(2)
+      keyboard.write(line, delay=random.uniform(0.1, 0.25))  # Send strokes
+      time.sleep(random.uniform(1, 3))
 
   time.sleep(2)
   keyboard.send('ctrl+s')
