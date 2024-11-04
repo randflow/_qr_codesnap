@@ -7,7 +7,7 @@ from pydub.playback import play
 
 data_dir = "D:/PROJECTS/data_dir"
 audio_file = os.path.join(data_dir, "flow.mp3")
-coder_file = os.path.join(data_dir, "main.py")
+coder_file = os.path.join(data_dir, "code.py")
 
 """
 Unmapped VS Code Shortcuts
