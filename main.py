@@ -26,6 +26,7 @@ class Mode(Enum):
 def start_coding():
   mode = Mode.CODE
   comments_list = []
+  command = None
 
   codestarty = 0
   cursory = 0
@@ -44,15 +45,23 @@ def start_coding():
         continue
       elif "[CMD]" in line:
         mode = Mode.CMD
+        command = line.split("[CMD]")[-1].strip()
+
+        pyautogui.moveTo(screen_width * 0.85, screen_height * 0.8, duration=0.3)
+        pyautogui.click()
+        keyboard.write(command, delay=0.1)
+        keyboard.press_and_release('enter')
 
         continue
       elif "[DO_COMMENT]" in line:
         mode = Mode.DO_COMMENT
-        print(codestarty)
-        print(comments_list)
+        # print(codestarty)
+        # print(comments_list)
+        pyautogui.moveTo(screen_width * 0.65, screen_height * 0.6, duration=0.3)
+        pyautogui.click()
         keyboard.press_and_release('ctrl+home')
-        cursory = 0
-        
+
+        cursory = 0        
         for comment_el in comments_list:
           comment_pos = comment_el[0]
           comment_str = comment_el[1].rstrip('\n')
@@ -80,8 +89,6 @@ def start_coding():
         keyboard.write(line, delay=random.uniform(0.1, 0.15))  # Send strokes
         time.sleep(random.uniform(1, 2))
 
-
-
 def trigger_audio():
   print("Starting Audio Playback")
   threading.Thread(target=lambda: play(AudioSegment.from_mp3(audio_file))).start()
@@ -98,9 +105,9 @@ def record_start():
   recordStarted = True
 
 def record_close():
-  global toExit
   print("Closing Recording")
   keyboard.unhook_all_hotkeys()
+  global toExit
   toExit = True
 
 keyboard.add_hotkey('Ctrl+Shift+I', record_start)
