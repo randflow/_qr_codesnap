@@ -24,11 +24,12 @@ class Mode(Enum):
   DO_COMMENT  = 3
 
 mode = Mode.CODE
+comments = {}
 
 def start_coding():
   time.sleep(4)
   with open(coder_file, "r") as file:
-    for line in file:
+    for filey, line in enumerate(file):
       if "[CODE]" in line:
         mode = Mode.CODE
         pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
@@ -37,18 +38,20 @@ def start_coding():
         mode = Mode.CMD
 
         continue
-
       elif "[DO_COMMENT]" in line:
         mode = Mode.DO_COMMENT
-        
+        print(comments)
         continue
 
-      if line.strip().startswith("#"):
+      if line.strip().startswith("#") or line.strip().startswith("//"):
+        comments[filey] = line
         continue
 
       if mode == Mode.CODE:
         keyboard.write(line, delay=random.uniform(0.1, 0.15))  # Send strokes
         time.sleep(random.uniform(1, 2))
+        print(filey)
+
 
 def trigger_audio():
   print("Starting Audio Playback")
