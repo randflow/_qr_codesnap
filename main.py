@@ -23,14 +23,12 @@ class Mode(Enum):
   CMD         = 2
   DO_COMMENT  = 3
 
-mode = Mode.CODE
-comments_list = []
-codestarty = 0
-cursory = 0
-
 def start_coding():
-  global codestarty
-  global cursory
+  mode = Mode.CODE
+  comments_list = []
+
+  codestarty = 0
+  cursory = 0
 
   time.sleep(4)
   with open(coder_file, "r") as file:
@@ -41,7 +39,6 @@ def start_coding():
         keyboard.press_and_release('delete')
         pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
 
-        cursory = 0
         codestarty = filey + 1
         continue
       elif "[CMD]" in line:
@@ -50,14 +47,20 @@ def start_coding():
         continue
       elif "[DO_COMMENT]" in line:
         mode = Mode.DO_COMMENT
-        print(codestarty, cursory)
+        print(codestarty)
         print(comments_list)
         keyboard.press_and_release('ctrl+home')
+        cursory = 0
         
-        first_comment = comments_list[0]
+        first_comment_el = comments_list[0]
+        comment_pos = first_comment_el[0]
+        comment_str = first_comment_el[1]
 
-        # for _ in range()
+        for _ in range(codestarty - comment_pos - cursory):
+          keyboard.press_and_release('down')
+          cursory = cursory + 1
 
+        keyboard.write(comment_str, delay=random.uniform(0.1, 0.15))  # Send strokes
         continue
 
       if line.strip().startswith("#") or line.strip().startswith("//"):
@@ -67,7 +70,7 @@ def start_coding():
       if mode == Mode.CODE:
         keyboard.write(line, delay=random.uniform(0.1, 0.15))  # Send strokes
         time.sleep(random.uniform(1, 2))
-        cursory = cursory + 1
+
 
 
 def trigger_audio():
