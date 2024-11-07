@@ -26,12 +26,10 @@ class Mode(Enum):
 mode = Mode.CODE
 comments_list = []
 codestarty = 0
-codeclosey = 0
 cursory = 0
 
 def start_coding():
   global codestarty
-  global codeclosey
   global cursory
 
   time.sleep(4)
@@ -43,24 +41,22 @@ def start_coding():
         keyboard.press_and_release('delete')
         pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
 
-        cursory = 1
-        codestarty = filey + 2
+        cursory = 0
+        codestarty = filey + 1
         continue
       elif "[CMD]" in line:
-        if mode == Mode.CODE:
-          codeclosey = filey
-
         mode = Mode.CMD
 
         continue
       elif "[DO_COMMENT]" in line:
-        if mode == Mode.CODE:
-          codeclosey = filey
-
         mode = Mode.DO_COMMENT
-        print(codestarty, codeclosey, cursory)
+        print(codestarty, cursory)
         print(comments_list)
+        keyboard.press_and_release('ctrl+home')
+        
+        first_comment = comments_list[0]
 
+        # for _ in range()
 
         continue
 
