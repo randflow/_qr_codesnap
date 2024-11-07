@@ -9,28 +9,10 @@ from pydub.playback import play
 
 data_dir = "D:/PROJECTS/data_dir"
 audio_file = os.path.join(data_dir, "flow.mp3")
-coder_file = os.path.join(data_dir, "code.py")
-
-"""
-Unmapped VS Code Shortcuts
-Ctrl + Shift + Q, I, A, J, L
-
-Start Recording - Ctrl + Shift + J
-Close Recording - Ctrl + Shift + L
-"""
+coder_file = os.path.join(data_dir, "code.txt")
 
 toExit = False
 recordStarted = False
-
-def play_audio():
-  try:
-    play(AudioSegment.from_mp3(audio_file))
-  except Exception as e:
-    print(f"Error Playing Audio: {e}")
-
-def trigger_audio():
-  print("Starting Audio Playback")
-  threading.Thread(target=play_audio).start()
 
 def start_coding():
   time.sleep(4)
@@ -59,6 +41,10 @@ def start_coding():
   time.sleep(1)
   keyboard.send('enter')
 
+def trigger_audio():
+  print("Starting Audio Playback")
+  threading.Thread(target=lambda: play(AudioSegment.from_mp3(audio_file))).start()
+
 def record_start():
   global recordStarted
   if not recordStarted:
@@ -81,4 +67,4 @@ keyboard.add_hotkey('Ctrl+Shift+L', record_close)
 
 print("Listening for hotkeys...")
 while not toExit:
-  time.sleep(4)
+  time.sleep(2)
