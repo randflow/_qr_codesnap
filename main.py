@@ -11,7 +11,7 @@ from pydub.playback import play
 
 data_dir = "D:/PROJECTS/data_dir"
 audio_file = os.path.join(data_dir, "flow.mp3")
-coder_file = os.path.join(data_dir, "code.txt")
+coder_file = os.path.join(data_dir, "file.txt")
 
 toExit = False
 recordStarted = False
@@ -24,33 +24,54 @@ class Mode(Enum):
   DO_COMMENT  = 3
 
 mode = Mode.CODE
-comments = {}
+comments_list = []
+codestarty = 0
+codeclosey = 0
+cursory = 0
 
 def start_coding():
+  global codestarty
+  global codeclosey
+  global cursory
+
   time.sleep(4)
   with open(coder_file, "r") as file:
     for filey, line in enumerate(file):
       if "[CODE]" in line:
         mode = Mode.CODE
+        keyboard.press_and_release('ctrl+a')
+        keyboard.press_and_release('delete')
         pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
+
+        cursory = 1
+        codestarty = filey + 2
         continue
       elif "[CMD]" in line:
+        if mode == Mode.CODE:
+          codeclosey = filey
+
         mode = Mode.CMD
 
         continue
       elif "[DO_COMMENT]" in line:
+        if mode == Mode.CODE:
+          codeclosey = filey
+
         mode = Mode.DO_COMMENT
-        print(comments)
+        print(codestarty, codeclosey, cursory)
+        print(comments_list)
+
+
         continue
 
       if line.strip().startswith("#") or line.strip().startswith("//"):
-        comments[filey] = line
+        comments_list.append([filey, line])
         continue
 
       if mode == Mode.CODE:
         keyboard.write(line, delay=random.uniform(0.1, 0.15))  # Send strokes
         time.sleep(random.uniform(1, 2))
-        print(filey)
+        cursory = cursory + 1
 
 
 def trigger_audio():
