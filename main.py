@@ -39,6 +39,7 @@ def start_coding():
         keyboard.press_and_release('delete')
         pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
 
+        comments_list = []
         codestarty = filey + 1
         continue
       elif "[CMD]" in line:
@@ -52,15 +53,23 @@ def start_coding():
         keyboard.press_and_release('ctrl+home')
         cursory = 0
         
-        first_comment_el = comments_list[0]
-        comment_pos = first_comment_el[0]
-        comment_str = first_comment_el[1]
+        for comment_el in comments_list:
+          comment_pos = comment_el[0]
+          comment_str = comment_el[1].rstrip('\n')
 
-        for _ in range(codestarty - comment_pos - cursory):
-          keyboard.press_and_release('down')
-          cursory = cursory + 1
+          print(codestarty, comment_pos, cursory)
+          for _ in range(comment_pos - codestarty - cursory):
+            keyboard.press_and_release('down')
+            cursory = cursory + 1
 
-        keyboard.write(comment_str, delay=random.uniform(0.1, 0.15))  # Send strokes
+          keyboard.press_and_release('enter')
+          keyboard.press_and_release('up')
+          keyboard.write(comment_str, delay=random.uniform(0.1, 0.15))  # Send strokes
+          keyboard.press_and_release('home')
+          keyboard.press_and_release('home')
+
+        keyboard.press_and_release('ctrl+end')
+        keyboard.press_and_release('ctrl+s')
         continue
 
       if line.strip().startswith("#") or line.strip().startswith("//"):
@@ -94,8 +103,8 @@ def record_close():
   keyboard.unhook_all_hotkeys()
   toExit = True
 
-keyboard.add_hotkey('Ctrl+Shift+J', record_start)
-keyboard.add_hotkey('Ctrl+Shift+L', record_close)
+keyboard.add_hotkey('Ctrl+Shift+I', record_start)
+keyboard.add_hotkey('Ctrl+Shift+J', record_close)
 
 print("Listening for hotkeys...")
 while not toExit:
