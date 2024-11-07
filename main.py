@@ -16,7 +16,7 @@ coder_file = os.path.join(data_dir, "file.txt")
 toExit = False
 recordStarted = False
 screen_width, screen_height = pyautogui.size()
-print(screen_width, screen_height)
+# print(screen_width, screen_height)
 
 class Mode(Enum):
   CODE        = 1
@@ -36,9 +36,17 @@ def start_coding():
     for filey, line in enumerate(file):
       if "[CODE]" in line:
         mode = Mode.CODE
+        pyautogui.moveTo(screen_width * 0.85, screen_height * 0.7, duration=0.3)
+        time.sleep(0.5)
+        pyautogui.click()
+        keyboard.write("cls", delay=0.25)
+        keyboard.press_and_release('enter')
+
+        pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
+        time.sleep(0.5)
+        pyautogui.click()
         keyboard.press_and_release('ctrl+a')
         keyboard.press_and_release('delete')
-        pyautogui.moveTo(screen_width * 0.65, screen_height * 0.8, duration=0.3)
 
         comments_list = []
         codestarty = filey + 1
@@ -47,10 +55,13 @@ def start_coding():
         mode = Mode.CMD
         command = line.split("[CMD]")[-1].strip()
 
+        keyboard.press_and_release('ctrl+s')
         pyautogui.moveTo(screen_width * 0.85, screen_height * 0.8, duration=0.3)
+        time.sleep(0.5)
         pyautogui.click()
         keyboard.write(command, delay=0.1)
         keyboard.press_and_release('enter')
+        time.sleep(2)
 
         continue
       elif "[DO_COMMENT]" in line:
@@ -66,9 +77,10 @@ def start_coding():
           comment_pos = comment_el[0]
           comment_str = comment_el[1].rstrip('\n')
 
-          print(codestarty, comment_pos, cursory)
+          # print(codestarty, comment_pos, cursory)
           for _ in range(comment_pos - codestarty - cursory):
             keyboard.press_and_release('down')
+            time.sleep(0.5)
             cursory = cursory + 1
 
           keyboard.press_and_release('enter')
@@ -98,17 +110,17 @@ def record_start():
   if not recordStarted:
     trigger_audio()
     start_coding()
-    print("Started Recording")
+    print("Record Started")
   else:
-    print("Already Recording")
+    print("Record InProgress")
   
   recordStarted = True
 
 def record_close():
-  print("Closing Recording")
   keyboard.unhook_all_hotkeys()
   global toExit
   toExit = True
+  print("Record Finished")
 
 keyboard.add_hotkey('Ctrl+Shift+I', record_start)
 keyboard.add_hotkey('Ctrl+Shift+J', record_close)
