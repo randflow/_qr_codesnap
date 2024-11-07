@@ -16,3 +16,21 @@ else:
 
 [CMD] python main.py
 
+[CODE]
+import math
+
+# Function to calculate the area of a circle
+def circle_area(radius):
+    return math.pi * radius ** 2
+
+# Set radius value
+radius = 5
+area = circle_area(radius)
+
+print(f"The area of the circle with radius {radius} is: {area}")
+
+[CMD] python main.py
+
+[DO_COMMENT]
+
+[CMD] python main.py
