@@ -1,0 +1,18 @@
+[CODE]
+# Set age to 16
+age = 16
+
+# Check if age is 18 or older
+if age >= 18:
+    # Eligible to vote
+    print("You are eligible to vote.")
+else:
+    # Not eligible to vote
+    print("You are not eligible to vote.")
+
+[CMD] python main.py
+
+[DO_COMMENT]
+
+[CMD] python main.py
+
